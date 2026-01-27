@@ -8,8 +8,6 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-os.environ["OPENAI_API_KEY"] = os.getenv("OPENAI_API_KEY")
-
 base = os.path.dirname(os.path.abspath(__file__))
 pdf_path = os.path.join(base, "..", "document.pdf")
 
