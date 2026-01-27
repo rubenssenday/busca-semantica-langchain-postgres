@@ -1,6 +1,6 @@
 # Projeto de Ingestão e Busca Semântica com LangChain e Postgres
 
-Este projeto implementa um sistema de busca semântica para documentos PDF utilizando LangChain, OpenAI Embeddings (ou Gemini Embeddings), e PostgreSQL com a extensão pgVector. O usuário pode ingerir um arquivo PDF e, em seguida, fazer perguntas via linha de comando (CLI) para receber respostas baseadas exclusivamente no conteúdo do PDF.
+Este projeto implementa um sistema de busca semântica para documentos PDF utilizando LangChain, OpenAI Embeddings, e PostgreSQL com a extensão pgVector. O usuário pode ingerir um arquivo PDF e, em seguida, fazer perguntas via linha de comando (CLI) para receber respostas baseadas exclusivamente no conteúdo do PDF.
 
 ## Tecnologias Obrigatórias
 
