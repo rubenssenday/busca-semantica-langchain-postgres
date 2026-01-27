@@ -10,7 +10,10 @@ load_dotenv()
 
 os.environ["OPENAI_API_KEY"] = os.getenv("OPENAI_API_KEY")
 
-loader = PyPDFLoader("document.pdf")
+base = os.path.dirname(os.path.abspath(__file__))
+pdf_path = os.path.join(base, "..", "document.pdf")
+
+loader = PyPDFLoader(pdf_path)
 documents = loader.load()
 
 text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=150, add_start_index=False)
