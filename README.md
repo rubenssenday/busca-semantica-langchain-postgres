@@ -1,6 +1,6 @@
 # Projeto de Ingestão e Busca Semântica com LangChain e Postgres
 
-Este projeto implementa um sistema de busca semântica para documentos PDF utilizando LangChain, OpenAI Embeddings (ou Gemini Embeddings), e PostgreSQL com a extensão pgVector. O usuário pode ingerir um arquivo PDF e, em seguida, fazer perguntas via linha de comando (CLI) para receber respostas baseadas exclusivamente no conteúdo do PDF.
+Este projeto implementa um sistema de busca semântica para documentos PDF utilizando LangChain, OpenAI Embeddings, e PostgreSQL com a extensão pgVector. O usuário pode ingerir um arquivo PDF e, em seguida, fazer perguntas via linha de comando (CLI) para receber respostas baseadas exclusivamente no conteúdo do PDF.
 
 ## Tecnologias Obrigatórias
 
@@ -27,29 +27,21 @@ Este arquivo conterá as variáveis de ambiente necessárias para o projeto, inc
     cp .env_example .env
     ```
 *   Edite o arquivo `.env` que você acabou de criar e preencha as seguintes variáveis:
-    *   `OPENAI_API_KEY`: Sua chave de API da OpenAI (ou `GEMINI_API_KEY` se for usar Gemini).
-    *   `POSTGRES_USER`: Nome de usuário para o PostgreSQL (sugestão: `user`).
-    *   `POSTGRES_PASSWORD`: Senha para o PostgreSQL (sugestão: `password`).
-    *   `POSTGRES_HOST`: Host do PostgreSQL (para Docker Compose, use o nome do serviço: `postgres_rag`).
+    *   `OPENAI_API_KEY`: Sua chave de API da OpenAI
+    *   `POSTGRES_USER`: Nome de usuário para o PostgreSQL (sugestão: `postgres`).
+    *   `POSTGRES_PASSWORD`: Senha para o PostgreSQL (sugestão: `postgres`).
+    *   `POSTGRES_HOST`: Host do PostgreSQL (para Docker Compose, use o nome do serviço: `localhost`).
     *   `POSTGRES_PORT`: Porta do PostgreSQL (padrão: `5432`).
-    *   `POSTGRES_DB`: Nome do banco de dados PostgreSQL (sugestão: `documents`).
-    *   `OPENAI_MODEL`: **Para Embeddings com OpenAI**, defina como `text-embedding-3-small`.
-    *   `OPENAI_CHAT_MODEL`: **Para Chat com OpenAI**, defina como `gpt-3.5-turbo` (ou outro modelo de chat de sua preferência).
-    *   `GEMINI_MODEL`: **Para Embeddings com Gemini**, defina como `models/embedding-001`.
-    *   `GEMINI_CHAT_MODEL`: **Para Chat com Gemini**, defina como `gemini-2.5-flash-lite`.
+    *   `POSTGRES_DB`: Nome do banco de dados PostgreSQL (sugestão: `rag`).
 
     Exemplo de `.env` (preencha `YOUR_OPENAI_API_KEY` com sua chave real):
     ```ini
     OPENAI_API_KEY=YOUR_OPENAI_API_KEY
-    POSTGRES_USER=user
+    POSTGRES_USER=postgres
     POSTGRES_PASSWORD=password
-    POSTGRES_HOST=postgres_rag
+    POSTGRES_HOST=localhost
     POSTGRES_PORT=5432
-    POSTGRES_DB=documents
-    OPENAI_MODEL=text-embedding-3-small
-    OPENAI_CHAT_MODEL=gpt-3.5-turbo
-    ```
-    *   **Importante**: Se você for usar Gemini, certifique-se de definir as variáveis `GEMINI_API_KEY`, `GEMINI_MODEL` e `GEMINI_CHAT_MODEL` e ajustar os arquivos `ingest.py` e `chat.py` para usar as classes de embeddings e LLM da Gemini.
+    POSTGRES_DB=rag
 
 ### 2. Subir o Banco de Dados com Docker Compose
 
@@ -73,16 +65,15 @@ Aguarde alguns segundos para que o contêiner do PostgreSQL seja inicializado e 
     # No macOS/Linux:
     source venv/bin/activate
     ```
-*   Instale todas as dependências listadas no `src/requirements.txt`:
+*   Instale todas as dependências listadas no `requirements.txt`:
     ```bash
-    python -m pip install -r src/requirements.txt
+    python -m pip install -r requirements.txt
     ```
 
 ### 4. Executar o Arquivo `ingest.py`
 
 Este script é responsável por carregar o documento PDF, dividi-lo em chunks, criar embeddings e armazená-los no banco de dados PostgreSQL.
 
-*   Coloque o arquivo PDF que deseja ingerir na pasta `src/` e nomeie-o como `document.pdf`. Se o nome ou o caminho for diferente, ajuste a linha `loader = PyPDFLoader("src/document.pdf")` no `ingest.py`.
 *   Execute o script de ingestão:
     ```bash
     python src/ingest.py
